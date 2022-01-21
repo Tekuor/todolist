@@ -1,4 +1,6 @@
 # todolist
+## Introduction
+Frontend project for a todo list web application. Backend can be found here https://github.com/Tekuor/todolist-api
 
 ## Project setup
 ```
