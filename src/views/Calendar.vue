@@ -335,7 +335,7 @@ export default {
       this.showCategoryModal = false;
     },
     async createCategory() {
-      await createCategory({ name: this.name, color: this.color });
+      await createCategory({ name: this.name, color: this.selectedColor });
       await this.getCategories();
       this.showCategoryModal = false;
     },
