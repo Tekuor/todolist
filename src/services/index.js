@@ -14,7 +14,7 @@ export async function login(data) {
 }
 
 export async function register(data) {
-  const result = await fetch("http://localhost:3000/register", {
+  const result = await fetch("https://gtodolist-api.herokuapp.com/register", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -29,7 +29,7 @@ export async function register(data) {
 }
 
 export async function getCategories() {
-  const result = await fetch("http://localhost:3000/categories", {
+  const result = await fetch("https://gtodolist-api.herokuapp.com/categories", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +42,7 @@ export async function getCategories() {
 }
 
 export async function getTasks() {
-  const result = await fetch("http://localhost:3000/tasks", {
+  const result = await fetch("https://gtodolist-api.herokuapp.com/tasks", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,7 +54,7 @@ export async function getTasks() {
 }
 
 export async function createTask(data) {
-  const result = await fetch("http://localhost:3000/tasks", {
+  const result = await fetch("https://gtodolist-api.herokuapp.com/tasks", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -67,7 +67,7 @@ export async function createTask(data) {
 }
 
 export async function createCategory(data) {
-  const result = await fetch("http://localhost:3000/categories", {
+  const result = await fetch("https://gtodolist-api.herokuapp.com/categories", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -80,20 +80,23 @@ export async function createCategory(data) {
 }
 
 export async function updateTask(data) {
-  const result = await fetch(`http://localhost:3000/tasks/${data._id}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  const result = await fetch(
+    `https://gtodolist-api.herokuapp.com/tasks/${data._id}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
   const response = await result.json();
   return response;
 }
 
 export async function logout() {
-  const result = await fetch(`http://localhost:3000/logout`, {
+  const result = await fetch(`https://gtodolist-api.herokuapp.com/logout`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
