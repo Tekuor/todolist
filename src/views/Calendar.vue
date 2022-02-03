@@ -47,6 +47,18 @@
                 </div>
               </div>
             </template>
+
+            <template #item="{ value, top }">
+              <div
+                :id="value.id"
+                :style="`${value.originalItem.style}; top: ${top}`"
+                :class="value.classes"
+                class="cv-item text-lg cursor-pointer"
+                @click="test(value.id)"
+              >
+                <p class="text-xs font-bold">{{ value.title }}</p>
+              </div>
+            </template>
           </calendar-view>
         </div>
       </div>
@@ -67,7 +79,7 @@
               <div class="flex flex-row">
                 <div
                   class="rounded-full h-4 w-4 mt-1 mr-2"
-                  :style="{ backgroundColor: category.color }"
+                  :class="[`bg-${category.color}-50`]"
                 ></div>
                 <p>{{ category.name }}</p>
               </div>
@@ -85,6 +97,46 @@
             :icon="['fas', 'plus']"
           />
         </div>
+      </div>
+    </div>
+
+    <div
+      style="position: absolute"
+      :style="{ top: `${top + 30}px`, left: `${left}px` }"
+      class="bg-white min-h-16 rounded-md border border-gray p-6"
+      v-if="show"
+    >
+      <div class="flex flex-row justify-between">
+        <div
+          class="rounded-md py-1 text-center mr-4 px-4 text-xs h-7 font-semibold"
+          :class="[`bg-${item.category.color}-50`]"
+        >
+          <p>{{ item.category.name }}</p>
+        </div>
+
+        <div
+          class="rounded-full py-1 text-center px-4 text-xs h-7 font-semibold"
+          :class="{
+            'bg-success': item.status === 'Completed',
+            'bg-progress': item.status === 'In-progress',
+          }"
+        >
+          <p>{{ item.status }}</p>
+        </div>
+      </div>
+
+      <h3 class="mt-4 font-semibold">{{ item.name }}</h3>
+      <p class="pb-4 pt-2">{{ item.description }}</p>
+
+      <div class="w-full">
+        <button
+          type="button"
+          class="w-full bg-primary text-white px-6 py-2 rounded-md"
+          @click="showAddModal = true"
+        >
+          <font-awesome-icon class="mr-4" :icon="['fas', 'pencil-alt']" />Edit
+          task
+        </button>
       </div>
     </div>
 
@@ -116,11 +168,11 @@
                   v-for="(color, index) in colors"
                   :key="index"
                   @click="selectColor(color)"
-                  class="rounded-full h-4 w-4 mt-1 mr-2"
-                  :class="{
-                    'outline outline-black': selectedColor === color,
-                  }"
-                  :style="{ backgroundColor: color }"
+                  class="rounded-full h-4 w-4 mt-1 mr-2 cursor-pointer"
+                  :class="[
+                    selectedColor === color ? 'outline outline-black' : '',
+                    `bg-${color}-50`,
+                  ]"
                 ></div>
               </div>
             </div>
@@ -303,12 +355,12 @@ export default {
       selectedColor: "",
       categories: [],
       colors: [
-        "#fcecea",
-        "#f4ece4",
-        "#e8e7e0",
-        "#e4e1f7",
-        "#e4f5ef",
-        "#ede0f3",
+        "rose",
+        "lightOrange",
+        "platinum",
+        "lavender",
+        "coolGreen",
+        "clearDay",
       ],
       tasks: [],
       showCategoryModal: false,
@@ -324,6 +376,10 @@ export default {
         status: "",
         dueDate: "",
       },
+      show: false,
+      top: 0,
+      left: 0,
+      item: {},
     };
   },
   methods: {
@@ -354,6 +410,27 @@ export default {
       await this.getTasks();
       this.showAddModal = false;
     },
+    getElementTopLeft(id) {
+      var ele = document.getElementById(id);
+      var top = 0;
+      var left = 0;
+
+      while (ele.tagName != "BODY") {
+        top += ele.offsetTop;
+        left += ele.offsetLeft;
+        ele = ele.offsetParent;
+      }
+      this.top = top;
+      this.left = left;
+
+      console.log(top, left);
+      return { top: top, left: left };
+    },
+    test(id) {
+      this.getElementTopLeft(id);
+      this.item = this.tasks.find((task) => task._id == id);
+      this.show = !this.show;
+    },
   },
   computed: {
     items() {
@@ -363,8 +440,13 @@ export default {
           startDate: new Date(task.dueDate),
           endDate: new Date(task.dueDate),
           title: task.name,
-          classes: ["calendar"],
-          style: `color:black; background-color: ${task.category.color};  border-color: ${task.category.color};`,
+          classes: [
+            "calendar",
+            `bg-${task.category.color}-50`,
+            `text-${task.category.color}-200`,
+            `border-${task.category.color}-100`,
+            "font-bold",
+          ],
         };
         return data;
       });
@@ -397,5 +479,10 @@ export default {
 .cv-header-nav {
   margin-top: -65px;
   padding-left: -20px;
+}
+
+.test {
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>

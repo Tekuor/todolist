@@ -68,7 +68,7 @@ export default {
           const data = {
             label: element,
             value: (findCategories.length / total) * 100,
-            color: findCategories[0].category.color,
+            color: findCategories[0].category.hex,
           };
           section.push(data);
         });

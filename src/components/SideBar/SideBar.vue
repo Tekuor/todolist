@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen bg-primary">
+  <div class="w-1/6 h-screen bg-primary fixed">
     <div class="flex flex-col items-center py-8">
       <img src="../../assets/todolist2.png" />
     </div>

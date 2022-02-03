@@ -31,7 +31,7 @@
         <td class="flex flex-row justify-center">
           <div
             class="rounded-md py-1 text-center mr-2 inline-block px-4 mt-3 font-semibold"
-            :style="{ backgroundColor: data.category.color }"
+            :class="[`bg-${data.category.color}-50`]"
           >
             <p>{{ data.category.name }}</p>
           </div>
