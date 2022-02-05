@@ -79,7 +79,7 @@
               <div class="flex flex-row">
                 <div
                   class="rounded-full h-4 w-4 mt-1 mr-2"
-                  :class="[`bg-${category.color}-50`]"
+                  :class="[getColor(category.color)]"
                 ></div>
                 <p>{{ category.name }}</p>
               </div>
@@ -386,6 +386,9 @@ export default {
     setShowDate(d) {
       this.showDate = d;
       this.currentPeriodLabel = format(d, "MMMM yyyy");
+    },
+    getColor(color) {
+      return `bg-${color}-50`;
     },
     close() {
       this.showCategoryModal = false;
