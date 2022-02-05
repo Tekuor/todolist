@@ -3,7 +3,27 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   purge: {
     content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
-    safelist: ["bg-rose-200"],
+    safelist: [
+      "bg-rose",
+      "bg-rose-50",
+      "bg-rose-100",
+      "bg-rose-200",
+      "bg-lightOrange-50",
+      "bg-lightOrange-100",
+      "bg-lightOrange-200",
+      "bg-platinum-50",
+      "bg-platinum-100",
+      "bg-platinum-200",
+      "bg-lavender-50",
+      "bg-lavender-100",
+      "bg-lavender-200",
+      "bg-coolGreen-50",
+      "bg-coolGreen-100",
+      "bg-coolGreen-200",
+      "bg-clearDay-50",
+      "bg-clearDay-100",
+      "bg-clearDay-200",
+    ],
   },
   // purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
