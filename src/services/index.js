@@ -1,5 +1,5 @@
 export async function login(data) {
-  const result = await fetch("http://localhost:3000/login", {
+  const result = await fetch("https://gtodolist-api.herokuapp.com/login", {
     method: "POST",
     headers: {
       "content-type": "application/json",
